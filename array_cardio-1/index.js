@@ -80,7 +80,7 @@ console.log(mapped)
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
-const sorted = inventors.sort((a, b) => {
+const sortedBirth = inventors.sort((a, b) => {
 	if (a.year > b.year) {
 		return -1
 	}
@@ -92,12 +92,31 @@ const sorted = inventors.sort((a, b) => {
 	return 0
 })
 
-console.log(sorted)
+console.log(sortedBirth)
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
+// Could also just pass currentValue as a param and get access to it with currentValue.year
+const reduced = inventors.reduce((accumulator, { year }) => {
+	return accumulator + year
+}, 0)
+
+console.log(reduced)
 
 // 5. Sort the inventors by years lived
+const sortedYearsLived = inventors.sort((a, b) => {
+	if (a.passed - a.year > b.passed - b.year) {
+		return -1
+	}
+
+	if (a.passed - a.year < b.passed - b.year) {
+		return 1
+	}
+
+	return 0
+})
+
+console.log(sortedYearsLived)
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
