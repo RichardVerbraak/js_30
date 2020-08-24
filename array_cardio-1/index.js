@@ -80,7 +80,7 @@ console.log(mapped)
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
-const sortedBirth = inventors.sort((a, b) => {
+const oldestToYoungest = inventors.sort((a, b) => {
 	if (a.year > b.year) {
 		return -1
 	}
@@ -92,19 +92,19 @@ const sortedBirth = inventors.sort((a, b) => {
 	return 0
 })
 
-console.log(sortedBirth)
+console.log(oldestToYoungest)
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live all together?
 // Could also just pass currentValue as a param and get access to it with currentValue.year
-const reduced = inventors.reduce((accumulator, { year }) => {
-	return accumulator + year
+const sumYearsLived = inventors.reduce((accumulator, { passed, year }) => {
+	return accumulator + (passed - year)
 }, 0)
 
-console.log(reduced)
+console.log(sumYearsLived)
 
 // 5. Sort the inventors by years lived
-const sortedYearsLived = inventors.sort((a, b) => {
+const oldest = inventors.sort((a, b) => {
 	if (a.passed - a.year > b.passed - b.year) {
 		return -1
 	}
@@ -116,13 +116,42 @@ const sortedYearsLived = inventors.sort((a, b) => {
 	return 0
 })
 
-console.log(sortedYearsLived)
+console.log(oldest)
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+// Paste below code in the console on the before mentioned wikipedia page
+
+// const links = document.querySelectorAll('.mw-category a')
+
+// // Converts a nodelist to an array so we can use array methods like map
+// // Could also use array.from()
+// const nodeArray = [...links]
+// const de = nodeArray
+// 	.map((street) => {
+// 		return street.textContent
+// 	})
+// 	.filter((street) => {
+// 		return street.includes('de')
+// 	})
+
+// console.log(de)
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+
+// Array is already sorted so I don't know why this exercise is here and I also think you can get away with just saying .sort()
+
+const lastNames = people.sort((a, b) => {
+	const [aLast, aFirst] = a.split(', ')
+	const [bLast, bFirst] = b.split(', ')
+
+	if (aLast > bLast) {
+		return 1
+	} else {
+		return -1
+	}
+})
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
@@ -142,3 +171,19 @@ const data = [
 	'car',
 	'truck',
 ]
+
+// 1. Our accumulator is an empty object at first
+// 2. We check to see if there is an object with the name of a vehicle like -- truck or car
+// 3. If there isn't make one and set it's value to 0
+// 4. Then continue on and increment it by one since there now is an object with the name of a vehicle
+const transportation = data.reduce((accumulator, vehicle) => {
+	if (!accumulator[vehicle]) {
+		accumulator[vehicle] = 0
+	}
+
+	accumulator[vehicle]++
+
+	return accumulator
+}, {})
+
+console.log(transportation)
