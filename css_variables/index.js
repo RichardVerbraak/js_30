@@ -1,7 +1,6 @@
 const inputs = document.querySelectorAll('.controls input')
 const root = document.documentElement
 
-/////////// Wes Bos's Version
 // If I used an arrow function, 'this' would be bound to the scope of this function, so it would be referencing nothing hence undefined returning
 // With a regular function it depends on where the function would be called
 // function handleUpdate() {
