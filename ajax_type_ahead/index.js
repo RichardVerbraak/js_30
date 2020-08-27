@@ -26,15 +26,22 @@ const findCityMatch = async (word) => {
 	return filtered
 }
 
-const createCity = (cities) => {
-	cities.forEach((place) => {
-		const li = document.createElement('li')
-		li.textContent = place.city
-		suggestions.appendChild(li)
-	})
+// I kept creating li items and appending them all continually to the ul instead of looping over and creating an li for each place and store that in a variable
+// and then appending that variable (containing all of the li's) to the ul, OOPS!
+// I also used forEach for creating all elements instead of map like below.
+const createList = (filtered) => {
+	const html = filtered
+		.map((place) => {
+			return `<li>
+		<span class="name">${place.city}, ${place.state}</span>
+		<span class="population">${place.population}</span>
+		</li>`
+		})
+		.join('')
+	suggestions.innerHTML = html
 }
 
-search.addEventListener('input', (e) => {
-	findCityMatch(e.target.value)
-	createCity()
+search.addEventListener('input', async (e) => {
+	const filteredCities = await findCityMatch(e.target.value)
+	createList(filteredCities)
 })
