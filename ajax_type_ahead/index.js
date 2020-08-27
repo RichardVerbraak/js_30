@@ -22,18 +22,27 @@ const findCityMatch = async (word) => {
 		const regex = new RegExp(word, 'gi')
 		return place.city.match(regex) || place.state.match(regex)
 	})
-
+	console.log(filtered)
 	return filtered
 }
 
 // I kept creating li items and appending them all continually to the ul instead of looping over and creating an li for each place and store that in a variable
 // and then appending that variable (containing all of the li's) to the ul, OOPS!
 // I also used forEach for creating all elements instead of map like below.
-const createList = (filtered) => {
+const createList = (filtered, searchInput) => {
 	const html = filtered
 		.map((place) => {
+			const regex = new RegExp(searchInput, 'gi')
+			const cityName = place.city.replace(
+				regex,
+				`<span class="hl">${searchInput}</span>`
+			)
+			const stateName = place.city.replace(
+				regex,
+				`<span class="hl">${searchInput}</span>`
+			)
 			return `<li>
-		<span class="name">${place.city}, ${place.state}</span>
+		<span class="name">${cityName}, ${stateName}</span>
 		<span class="population">${place.population}</span>
 		</li>`
 		})
@@ -43,5 +52,5 @@ const createList = (filtered) => {
 
 search.addEventListener('input', async (e) => {
 	const filteredCities = await findCityMatch(e.target.value)
-	createList(filteredCities)
+	createList(filteredCities, e.target.value)
 })
