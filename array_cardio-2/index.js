@@ -17,17 +17,37 @@ const comments = [
 
 // Some and Every Checks
 // Array.prototype.some() // is at least one person 19 or older?
-people.some((people) => {
+const some = people.some((people) => {
+	if (2020 - people.year >= 19) {
+		console.log(people)
+		return people
+	}
+})
+console.log(some)
+
+// Array.prototype.every() // is everyone 19 or older?
+const everyone = people.every(() => {
 	if (2020 - people.year >= 19) {
 		return people
 	}
 })
-// Array.prototype.every() // is everyone 19 or older?
+console.log(everyone)
 
 // Array.prototype.find()
 // Find is like filter, but instead returns just the one you are looking for
 // find the comment with the ID of 823423
+const foundId = comments.find(({ id }) => {
+	return id === 823423
+})
+console.log(foundId)
 
 // Array.prototype.findIndex()
 // Find the comment with this ID
 // delete the comment with the ID of 823423
+const foundIdIndex = comments.findIndex(({ id }) => {
+	return id === 823423
+})
+console.log(foundIdIndex)
+
+comments.splice(foundIdIndex, 1)
+console.log(comments)
