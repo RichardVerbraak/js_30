@@ -7,17 +7,17 @@ const endpoint =
 const cities = []
 
 // Fetches cities and spreads them out in our array
-const fetchCities = async () => {
-	const res = await fetch(endpoint)
-	const data = await res.json()
-	cities.push(...data)
-}
+fetch(endpoint)
+	.then((res) => {
+		return res.json()
+	})
+	.then((data) => {
+		cities.push(...data)
+	})
 
 // Includes is for checking if a string may be found in another string, returning true or false
 // Match is matching a string against a regex and the returns an array
-const findCityMatch = async (word) => {
-	await fetchCities()
-
+const findCityMatch = (word) => {
 	const filtered = cities.filter((place) => {
 		const regex = new RegExp(word, 'gi')
 		return place.city.match(regex) || place.state.match(regex)
@@ -50,7 +50,7 @@ const createList = (filtered, searchInput) => {
 	suggestions.innerHTML = html
 }
 
-search.addEventListener('input', async (e) => {
-	const filteredCities = await findCityMatch(e.target.value)
+search.addEventListener('input', (e) => {
+	const filteredCities = findCityMatch(e.target.value)
 	createList(filteredCities, e.target.value)
 })
