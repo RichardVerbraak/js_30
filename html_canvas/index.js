@@ -15,6 +15,8 @@ let lastX = 0
 let lastY = 0
 let hue = 0
 
+let direction = true
+
 canvas.addEventListener('mousemove', (e) => {
 	if (isDrawing) {
 		// Frankenstein creation of colors
@@ -23,6 +25,7 @@ canvas.addEventListener('mousemove', (e) => {
 		// let B = Math.floor(Math.random() * 255)
 
 		context.strokeStyle = `hsl(${hue}, 100%, 50%)`
+
 		context.beginPath()
 		context.moveTo(lastX, lastY)
 
@@ -30,10 +33,28 @@ canvas.addEventListener('mousemove', (e) => {
 		context.stroke()
 		lastX = e.offsetX
 		lastY = e.offsetY
-		if (hue > 360) {
+
+		hue++
+		if (hue >= 360) {
 			hue = 0
 		}
-		hue++
+
+		console.log(context.lineWidth)
+		if (context.lineWidth >= 100) {
+			context.lineWidth--
+		} else if (context.lineWidth <= 1) {
+			context.lineWidth++
+		}
+
+		// if (context.lineWidth >= 100 || context.lineWidth <= 1) {
+		// 	direction = !direction
+		// }
+
+		// if (direction) {
+		// 	context.lineWidth++
+		// } else {
+		// 	context.lineWidth--
+		// }
 
 		// context.strokeStyle = `rgb(${R}, ${G}, ${B})`
 	}
