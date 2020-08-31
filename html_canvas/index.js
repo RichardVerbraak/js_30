@@ -39,22 +39,16 @@ canvas.addEventListener('mousemove', (e) => {
 			hue = 0
 		}
 
-		console.log(context.lineWidth)
-		if (context.lineWidth >= 100) {
-			context.lineWidth--
-		} else if (context.lineWidth <= 1) {
-			context.lineWidth++
+		// Flips line width on 1 and 100
+		if (context.lineWidth >= 100 || context.lineWidth <= 1) {
+			direction = !direction
 		}
 
-		// if (context.lineWidth >= 100 || context.lineWidth <= 1) {
-		// 	direction = !direction
-		// }
-
-		// if (direction) {
-		// 	context.lineWidth++
-		// } else {
-		// 	context.lineWidth--
-		// }
+		if (direction) {
+			context.lineWidth++
+		} else {
+			context.lineWidth--
+		}
 
 		// context.strokeStyle = `rgb(${R}, ${G}, ${B})`
 	}
